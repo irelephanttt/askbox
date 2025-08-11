@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/style.css">
+        <title> Inbox | askbox </title>
+    </head>
+    <body>
+        <% render("views.navbar") %>
+        <main id="main">
+            <h2 class="page-title">Inbox</h2>
+            <div class="inbox-main-div">
+                <% for i, item in ipairs(inbox_items) do %>
+                    <div class="ask-notification post-card">
+                        <div class="ask-bubble">
+                            <p><b><%= item.ask.author %></b> Asked:</p>
+                            <blockquote><%= item.ask.content %> </blockquote>
+                        </div>
+                        <a href="/answer/<%= item.ask.id %>" class="answer-button">Answer</a>
+                    </div>
+                <% end %>
+            </div>    
+        </main>
+    </body>
+</html>
+
+        

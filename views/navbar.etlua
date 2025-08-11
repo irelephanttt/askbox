@@ -1,0 +1,17 @@
+<nav>
+    <img class="navbar-logo" aria-hidden="true" src="/static/icon.svg" width="50px">
+    <ul>
+        <li><a href="/" class="home-link"> <img src="/static/home_icon.svg" alt="home"> </a></li>
+    <% if is_logged_in then %>
+        <li><a href="/inbox"> <img src="/static/inbox_icon.svg" alt="inbox"></a></li>
+        <li><a href="/notifications"><img src="/static/bell_icon.svg" alt="Notifications" title="Notifications" ></a></li>
+        <% if session.user_profile_picture then %>
+            <li><a href="<%= "/users/" .. session.current_user %>"><img src="<%= session.user_profile_picture %>" alt="My Profile"></a></li>
+        <% else %>
+            <li><a href="<%= "/users/" .. session.current_user %>"><img src="/static/default_user_icon.svg" alt="My Profile"></a></li>
+        <% end %>
+    <% else %>
+        <li><a href="/login">Sign In</a></li>
+    <% end %>
+   </ul>
+</nav>

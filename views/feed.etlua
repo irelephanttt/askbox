@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+        <title> Feed | askbox </title>
+    </head>
+    <body>
+        <% render("views.navbar") %>
+        <main id="main" class="content">
+            <% for i, post in ipairs(posts) do %>
+                <article class="post-card">
+                    <header class="post-header">
+                        <img src="/static/default_user_icon.svg" alt="User Profile Picture" title="User Profile Picture" class="user-profile-picture">
+                        <a href="<%= post.user.link %>" class="header-username"> <%= post.user.username %> </a>
+                        <p lass="header-handle"> <%= post.user.handle %> </p>
+                    </header>
+                    <div>
+                        <% if post.type == "ask" then %>
+                            <div class="ask-bubble">
+                                <p> <b><%= post.ask.author.username %></b> asked: </p>
+                                <blockquote> <%= post.ask.content %> </blockquote>
+                            </div>
+                        <% end %>
+                        <p> <%= post.content %> </p>
+                        <a href="<%= post.link %>" class="comments-link">Comments</a>
+                    </div>
+                </article>
+            <% end %>
+            
+        </main>
+    </body>
+</html>

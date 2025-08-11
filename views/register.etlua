@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Register | askbox</title>
+    </head>
+    <body>
+        <% render("views.navbar") %>
+        <main id="main" class="content">
+            <form method="POST" action="/register" class="post-card login-form">
+                <label for="username-input">Username:</label>
+                <input type="text" id="username-input" name="username" placeholder="username">
+                <label for="email-input">Email:</label>
+                <input type="text" id="email-input" name="email" placeholder="email">
+                <label for="password-input">Password:</label>
+                <input type="password" id="password-input" name="password" placeholder="email">
+                <button type="submit">Register</button>
+            </form>
+        </main>
+    </body>
+</html>

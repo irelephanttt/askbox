@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Post by <%= posts.user.handle %> | askbox </title>
+    </head>
+    <body>
+        <% render("views.navbar") %>
+        
+        <main id="main" class="content">
+            <div id="main-post" class="post-card">
+                <header class="post-header">
+                    <img src="/static/default_user_icon.svg" alt="User Profile Picture" title="User Profile Picture" class="user-profile-picture">
+                    <a href="<%= posts.user.link %>" class="header-username"> <%= posts.user.username %> </a>
+                    <p class="header-handle"> <%= posts.user.handle %> </p>
+                </header>
+                <article>
+                    <section class="ask-bubble">
+                        <h4> <%= posts.ask.author %> asked: </h4>
+                        <blockquote> <%= posts.ask.content %> </blockquote>
+                    </section>
+                    <%= posts.content %>
+                </article>
+            </div>
+            <div class="post-comment-form">
+                <form method="POST" action="/post">
+                    <input type="hidden" name="in_reply_parent" value="<%= params.id %>">
+                    <textarea name="reply_content"></textarea>
+                    <button type="submit">Comment</button>
+                </form>
+            </div>
+            <% if posts.replies then %>
+                <% for i, post in ipairs(posts.replies) do %>
+                <div class="post-card">
+                    <header class="post-header"> 
+                        <img src="/static/default_user_icon.svg" alt="User Profile Picture" title="User Profile Picture" class="user-profile-picture">
+                        <a href="<%= post.user.link %>" class="header-username"> <%= post.user.username %> </a>
+                        <p class="header-handle"> <%= post.user.handle %> </p>
+                    </header>
+                    <article>
+                        <%= post.content %>
+                    </article>
+                </div>
+                <% end %>
+            <% end %>
+        </div>
+    </body>
+</html>
+
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+        <title> <%= user.username %>'s page | askbox </title>
+    </head>
+    <body>
+    
+        <% render("views.navbar") %>
+        <main id="main" >
+            <div class="content">
+                <div class="user-info-card">
+                    <div class="user-follow-button">
+                        <% if user.is_following then  %>
+                            <button disabled>Following</button>
+                        <% else %>
+                            <form action="/follow" method="POST">
+                                <input type="hidden" value="<%= user.id %>" name="following_id">
+                                <button>Follow</button>
+                            </form>
+                        <% end %>
+                    </div>
+                    <img src="/static/default_user_icon.svg" alt="User Profile Picture" title="User Profile Picture" class="user-profile-picture user-info-pfp">
+                    <h3 class="user-display-name"> <%= user.username %> </h3>
+                    <p class="user-handle"> <%= user.handle %> </p>
+                    
+                    <% if user.bio == nil then %>
+                        <i>This user has not written a bio yet.</i>
+                    <% else %>
+                        <p> <%= user.bio %> </p>
+                    <% end %>
+                </div>
+                <div class="user-ask-form">
+                    <% if is_logged_in then %>
+                        <form action="/ask/<%= user.handle %>" method="POST">
+                            <label for="ask-box">Enter your ask!</label>
+                            <textarea id="ask-box" name="askcontent"></textarea>
+                            <button type="submit">Send!</button>
+                            <% if ask_message then %>
+                                <p> <%= ask_message %> </p>
+                            <% end %>
+                        </form>
+                    <% else %>
+                        <h3>Sign in to send asks. </h3>
+                    <% end %>
+                </div>
+                
+                <div class="posts">
+                    <% for i, post in ipairs(user.posts) do %>
+                        <article class="post-card">
+                            <div class="ask-bubble">
+                                <p><b><%= post.ask.author %></b> Asked:</p>
+                                <blockquote><%= post.ask.content %> </blockquote>
+                            </div>
+                            <%= post.content %>
+                            <a href="<%= post.link %>" class="comments-link">Comments</a>
+                        </article>
+                    <% end %>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
